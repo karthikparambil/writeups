@@ -1,8 +1,8 @@
 # Ignite CTF – TryHackMe Write-Up
 
 **Room:** Ignite  
-**Difficulty:** Easy (approx. 45 min)  
-**Author:** DarkStar7471 (Designed by DarkStar7471, built by Paradox) :contentReference[oaicite:0]{index=0}
+**Difficulty:** Easy  
+**Author:** Karthik
 
 ---
 
