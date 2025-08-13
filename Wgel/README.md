@@ -1,25 +1,4 @@
 
-```md
-# THM - Wgel CTF Writeup
-
-## 🏴 Challenge Overview
-**Room Name:** Wgel  
-**Difficulty:** Easy  
-**Category:** Linux Privilege Escalation / Enumeration  
-**Platform:** [TryHackMe](https://tryhackme.com)  
-
----
-
-## 📜 Summary
-This machine involved:
-- Enumerating services with **Nmap**  
-- Discovering a hidden directory using **Gobuster**  
-- Retrieving an SSH private key from a `/sitemap` subdirectory  
-- Logging in via SSH  
-- Exploiting **wget** misconfiguration to read the root flag  
-
----
-
 ## 🚀 Walkthrough
 
 ### 1️⃣ Enumeration
