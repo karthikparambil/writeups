@@ -161,9 +161,3 @@ We exploited **The Cod Caper** using:
 
 🚩 Room Completed 🎉
 ```
-
----
-
-This is **ready to paste directly into a `README.md`** file.  
-
-Do you want me to also add a **Table of Contents** at the top (with links to each section) so it’s easier to navigate on GitHub?
