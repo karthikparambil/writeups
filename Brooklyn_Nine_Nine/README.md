@@ -10,7 +10,7 @@ This is a **Brooklyn Nine Nine** themed CTF, designed for beginners. Let’s jum
 Scanning the machine with Nmap:
 
 ```bash
-nmap -sC -sV -p21,22,80 -vv -oN nmap-detailed IP
+nmap -sVC -p- IP
 ````
 
 ### Results
