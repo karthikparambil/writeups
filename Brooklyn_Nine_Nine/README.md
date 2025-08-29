@@ -1,5 +1,5 @@
 
-# Brooklyn Nine Nine CTF Writeup
+# Brooklyn Nine Nine CTF Writeup | Tryhackme
 
 This is a **Brooklyn Nine Nine** themed CTF, designed for beginners. Let’s jump into it and check out this machine.
 
