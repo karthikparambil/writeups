@@ -5,7 +5,7 @@
 - Style: Boot-to-Root  
 - Original Event: **Securi-Tay 2020**  
 - Skills Tested: Enumeration, encoding/decoding, steganography, brute-forcing, reverse shells, privilege escalation  
-
+- Author: Karthik
 ---
 
 ## 🔎 1. Enumeration
