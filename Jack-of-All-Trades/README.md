@@ -36,7 +36,7 @@ Always show details
 
     http://10.10.115.169:22
 
-###🖼 2. Web Enumeration
+### 2. Web Enumeration
 
     Source code → /recovery.php.
 
@@ -48,7 +48,7 @@ Always show details
 
         Credentials hidden in header.jpg.
 
-###🕵️‍♂️ 3. Steganography
+### 3. Steganography
 
 Download image:
 
@@ -74,7 +74,7 @@ Always show details
 
 http://10.10.115.169:22/nnxhweOV/?cmd=id
 
-###🐚 5. Reverse Shell
+### 5. Reverse Shell
 
 Start listener:
 
@@ -94,7 +94,7 @@ Always show details
 
 python3 -c 'import pty; pty.spawn("/bin/bash")'
 
-###🔑 6. User Flag
+### 6. User Flag
 
 Found password list in /home/jack/.
 Brute-forced SSH on port 80:
