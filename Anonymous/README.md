@@ -16,10 +16,9 @@ Let’s jump in!
 
 We start with a basic scan:
 
-```
-nmap -sC -sV <target-ip>
-```
-    Initially, only two ports were open.
+``
+nmap -sC -sV <target-ip>``
+Initially, only two ports were open.
 
     No web server was found, so a full TCP scan was run to check for missed ports.
 
