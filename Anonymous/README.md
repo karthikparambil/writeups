@@ -16,8 +16,9 @@ Let’s jump in!
 
 We start with a basic scan:
 
-``
-nmap -sC -sV <target-ip>``
+```
+nmap -sC -sV <target-ip>
+```
 
 Initially, only two ports were open.
 
