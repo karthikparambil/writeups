@@ -52,7 +52,11 @@ Uploaded PHP reverse shell disguised as GIF:
 ```
 Filename: phpreverseshell.php.gif
 ```
-LFI to RCE
+And add gif header
+```
+GIF89a;
+```
+LFI
 
 Used LFI to read index.php source code:
 text
